@@ -79,18 +79,8 @@ export function DiffViewer({ diff, comments, file }: DiffViewerProps) {
         }
       }
     });
-    console.log(extendData);
     return extendData;
   };
-
-  const startTotal = performance.now();
-  // diff is now passed as a prop, ensuring it survives as long as the parent is mounted.
-  const endTotal = performance.now();
-  console.log(
-    `[Diff Viewer] Execution total (including prop access): ${(
-      endTotal - startTotal
-    ).toFixed(4)}ms`
-  );
 
   const parsedComments = useMemo(() => {
     return parseComments(comments);

@@ -53,8 +53,6 @@ export function FileDiff({ repoId, prId, file }: FileProps) {
   const [isExpand, , , setReverse] = useBooleanState(false);
   const statusInfo = getFileStatusInfo(file.fileStatus);
 
-  console.log("FileDiff rendered for:", file.fileName, "isExpand:", isExpand);
-
   useEffect(() => {
     if (isExpand) {
       getFile(file);
@@ -76,13 +74,7 @@ export function FileDiff({ repoId, prId, file }: FileProps) {
     instance.init();
     instance.buildSplitDiffLines();
     instance.buildUnifiedDiffLines();
-    const endCalc = performance.now();
 
-    console.log(
-      `[Diff Calculation - Parent] ${file.fileName} Execution time: ${(
-        endCalc - startCalc
-      ).toFixed(4)}ms`
-    );
     return instance;
   }, [rawFile, file]);
 

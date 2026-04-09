@@ -47,11 +47,6 @@ const repositoryHandler = [
     const rawFile =
       PullRequestFileRawMap[fileId] || PullRequestFileRawMap["default"];
 
-    console.log(
-      `Fetching raw file for fileId: ${fileId}`,
-      rawFile ? "Found" : "Using default"
-    );
-
     return HttpResponse.json(rawFile);
   }),
 

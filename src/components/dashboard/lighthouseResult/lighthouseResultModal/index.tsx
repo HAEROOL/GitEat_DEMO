@@ -72,7 +72,6 @@ function LighthouseResultModal({
     const branch = branchRef.current?.value.trim();
 
     if (!repoId) {
-      console.log("repoId가 없습니다.");
       return;
     }
     if (!gitUrl || !frontendPath || !branch) {
@@ -87,7 +86,6 @@ function LighthouseResultModal({
 
   useEffect(() => {
     if (isUpdated) {
-      console.log("test 정보 업데이트 완료");
       setSnackbarMessage("성능 측정 완료");
       setSnackbarSeverity("info");
       setSnackbarOpen(true);
