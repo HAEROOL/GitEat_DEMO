@@ -62,7 +62,6 @@ export function FileDiff({ repoId, prId, file }: FileProps) {
   const diff = useMemo(() => {
     if (!rawFile) return null;
 
-    const startCalc = performance.now();
     const instance = generateDiffFile(
       "oldFileName",
       rawFile.oldCode === null ? "" : rawFile.oldCode,
