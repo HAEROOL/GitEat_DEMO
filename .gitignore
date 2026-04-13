@@ -37,3 +37,5 @@ dist-ssr
 .env
 *storybook.log
 CLAUDE.md
+
+PERFORMANCE_IMPROVEMENT_REPORT.md
