@@ -95,27 +95,6 @@ export function VirtualizedDiffViewer({
     }
   }, [diff]);
 
-  // Cmd+F 브라우저 검색을 위한 숨겨진 텍스트 레이어
-  // 가상화로 인해 DOM에 없는 라인도 검색 가능하도록 전체 텍스트를 렌더링
-  const searchableLines = useMemo(() => {
-    try {
-      const contentLines = getSplitContentLines(diff);
-      return contentLines.map((item) => {
-        const left = item.splitLine?.left;
-        const right = item.splitLine?.right;
-        const leftVal = left?.lineNumber
-          ? left.value || diff.getOldPlainLine(left.lineNumber)?.value || ""
-          : "";
-        const rightVal = right?.lineNumber
-          ? right.value || diff.getNewPlainLine(right.lineNumber)?.value || ""
-          : "";
-        return `${leftVal}  ${rightVal}`;
-      });
-    } catch {
-      return [];
-    }
-  }, [diff]);
-
   const commentsMap = useMemo(() => {
     const map: Record<string, Comment[]> = {};
     comments.forEach((c) => {
@@ -151,25 +130,7 @@ export function VirtualizedDiffViewer({
         }
       >
         <div className="diff-view-wrapper border border-gray-200 rounded-md bg-white overflow-hidden">
-          <div className="split-diff-view split-diff-view-normal w-full relative">
-            {/* 숨겨진 텍스트 레이어: Cmd+F 브라우저 검색 지원 */}
-            {/* 가상화로 DOM에서 제거된 라인도 검색할 수 있도록 전체 텍스트를 렌더링 */}
-            {/* 트레이드오프: 메모리 사용량 증가 vs Cmd+F 기능 보존 */}
-            {searchableLines.length > 0 && (
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 -z-10 pointer-events-none select-none overflow-hidden"
-                style={{
-                  color: "transparent",
-                  fontSize: "1px",
-                  lineHeight: "1px",
-                }}
-              >
-                {searchableLines.map((text, i) => (
-                  <div key={i}>{text}</div>
-                ))}
-              </div>
-            )}
+          <div className="split-diff-view split-diff-view-normal w-full">
             {virtualData.length > 0 ? (
               <Virtuoso
                 useWindowScroll

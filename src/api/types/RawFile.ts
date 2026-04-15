@@ -47,4 +47,5 @@ export type RawFileResponse = {
   }[];
   oldCode: string | null;
   newCode: string | null;
+  hunks: string[];
 };

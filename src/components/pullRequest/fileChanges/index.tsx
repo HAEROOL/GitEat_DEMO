@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton, Chip } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { generateDiffFile } from "@git-diff-view/file";
+import { DiffFile } from "@git-diff-view/file";
 import { usePRStore } from "../../../store/pullRequestStore";
 import { ErrorBoundary } from "../../common/errorBoundery";
 import { FileTree } from "./fileTree";
@@ -104,31 +104,26 @@ function FileDiffContainer({
   const diff = useMemo(() => {
     if (!rawFile) return null;
 
-    // The library's internal verification is very sensitive to trailing newlines.
-    // Standardizing both contents to end with exactly one newline is the most reliable way
-    // to ensure they match the default behavior of the patch generator (diff-match-patch / jsdiff).
     const normalize = (code: string | null) => {
       if (code === null || code === undefined || code === "") return "";
       return code.replace(/\r\n/g, "\n").trimEnd() + "\n";
     };
 
     try {
-      const oldVal = normalize(rawFile.oldCode);
-      const newVal = normalize(rawFile.newCode);
-      const oldPath = file.oldPath || "a/" + (file.newPath || "file");
-      const newPath = file.newPath || "b/" + (file.oldPath || "file");
+      const instance = DiffFile.createInstance({
+        oldFile: {
+          fileName: file.oldPath || "a/" + (file.newPath || "file"),
+          fileLang: getFileType(file.oldPath),
+          content: normalize(rawFile.oldCode),
+        },
+        newFile: {
+          fileName: file.newPath || "b/" + (file.oldPath || "file"),
+          fileLang: getFileType(file.newPath),
+          content: normalize(rawFile.newCode),
+        },
+        hunks: rawFile.hunks || [],
+      });
 
-      const instance = generateDiffFile(
-        oldPath,
-        oldVal,
-        newPath,
-        newVal,
-        getFileType(file.oldPath),
-        getFileType(file.newPath)
-      );
-
-      // Perform initialization
-      // We wrap it in a try-catch to catch the "mismatch" error if normalization wasn't enough.
       instance.initRaw();
       instance.buildSplitDiffLines();
       instance.buildUnifiedDiffLines();
@@ -136,8 +131,6 @@ function FileDiffContainer({
       return instance;
     } catch (e) {
       console.error("Failed to initialize diff instance:", e);
-      // If mismatch happens despite normalization, we can try to create a fallback
-      // but usually the error prevents proper line mapping for comments.
       return null;
     }
   }, [rawFile, file]);

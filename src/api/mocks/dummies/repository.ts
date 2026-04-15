@@ -588,7 +588,10 @@ const POSITION_BASE = {
   lineRange: null,
 } as const;
 
-export const PullRequestFileRawMap: Record<string, RawFileResponse> = {
+export const PullRequestFileRawMap: Record<
+  string,
+  Omit<RawFileResponse, "hunks">
+> = {
   "file-products-api": {
     fileName: "products.ts",
     comments: [
