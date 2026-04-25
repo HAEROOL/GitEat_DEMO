@@ -9,16 +9,16 @@ import { useLoginStore } from "../../store/loginStore";
 import { Landing } from "../landing";
 
 export function Login() {
-  const gitLabLogin = () => {
-    const REDIRECT_URI = import.meta.env.VITE_OAUTH_REDIRECT;
-    const CLIENT_ID = import.meta.env.VITE_GITLAB_CLIENT_ID;
-    const gitLabAuthUrl = `https://lab.ssafy.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-    window.location.href = gitLabAuthUrl;
-  };
   const { setUser, setLogin } = useLoginStore();
   const { data, isLoading, refetch } = useGetMe();
-
   const navigation = useNavigate();
+
+  // Mock 배포: 외부 OAuth로 나가지 않고 /loading?code=mock-code 로 진입.
+  // /loading 페이지가 mock된 POST /oauth/gitlab/login을 호출해 토큰을 받고
+  // /repos로 이동시킵니다.
+  const gitLabLogin = () => {
+    navigation("/loading?code=mock-code", { replace: true });
+  };
 
   // Mock 배포: 첫 진입 시 자동으로 목업 사용자로 로그인하고 /repos로 이동
   useEffect(() => {
