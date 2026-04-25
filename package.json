@@ -24,7 +24,7 @@
     "@types/react-query": "^1.2.9",
     "@uiw/react-md-editor": "^4.0.5",
     "apexcharts": "^4.4.0",
-    "axios": "^1.7.9",
+    "axios": "^1.15.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.4.3",
     "prismjs": "^1.29.0",

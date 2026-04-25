@@ -21,23 +21,44 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 
 // 토큰 재발급 진행 여부와 대기중인 콜백들을 저장하는 변수
 let isRefreshing = false;
-let refreshSubscribers: Array<(token: string) => void> = [];
+let refreshSubscribers: Array<{
+  resolve: (token: string) => void;
+  reject: (error: unknown) => void;
+}> = [];
+
+// 동시성 제어 상수
+const MAX_QUEUED_REQUESTS = 50; // 대기 큐 최대 크기
+const REFRESH_TIMEOUT_MS = 10000; // refresh 요청 타임아웃 (10초)
 
 // refresh 완료 후, 대기 중인 모든 요청에 새 토큰을 적용
 function onRefreshed(newToken: string): void {
-  refreshSubscribers.forEach((cb) => cb(newToken));
+  refreshSubscribers.forEach(({ resolve }) => resolve(newToken));
+  refreshSubscribers = [];
+}
+
+// refresh 실패 시, 대기 중인 모든 요청에 에러를 전파
+function onRefreshFailed(error: unknown): void {
+  refreshSubscribers.forEach(({ reject }) => reject(error));
   refreshSubscribers = [];
 }
 
 // refresh token 요청 대기 등록
-function subscribeTokenRefresh(cb: (token: string) => void): void {
-  refreshSubscribers.push(cb);
+function subscribeTokenRefresh(
+  resolve: (token: string) => void,
+  reject: (error: unknown) => void
+): void {
+  if (refreshSubscribers.length >= MAX_QUEUED_REQUESTS) {
+    reject(new Error("Too many queued requests during token refresh"));
+    return;
+  }
+  refreshSubscribers.push({ resolve, reject });
 }
 
-// 실제 refresh token API 호출 (API 스펙에 맞게 엔드포인트 및 요청 데이터를 수정)
+// 실제 refresh token API 호출 (타임아웃 포함)
 function refreshToken(): Promise<AxiosResponse> {
   return axios.get(`${API_BASE}/oauth/gitlab/refresh`, {
     withCredentials: true,
+    timeout: REFRESH_TIMEOUT_MS,
   });
 }
 
@@ -75,7 +96,7 @@ authClient.interceptors.response.use(
 
       // 다른 요청이 이미 refresh 요청을 진행 중인 경우
       if (isRefreshing) {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           subscribeTokenRefresh((newToken: string) => {
             if (originalRequest.headers) {
               originalRequest.headers["authorization"] = `${newToken}`;
@@ -83,7 +104,7 @@ authClient.interceptors.response.use(
               originalRequest.headers = { authorization: `${newToken}` };
             }
             resolve(authClient(originalRequest));
-          });
+          }, reject);
         });
       }
 
@@ -99,7 +120,9 @@ authClient.interceptors.response.use(
         // 실패했던 원래 요청 재시도
         return authClient(originalRequest);
       } catch (err) {
-        // refresh 실패 시, 토큰 삭제 및 로그아웃 처리 등
+        // refresh 실패 시, 대기 중인 모든 요청에 에러 전파
+        onRefreshFailed(err);
+        // 토큰 삭제 및 로그아웃 처리
         localStorage.removeItem("access_token");
         alert("세션이 만료되었습니다. 다시 로그인해주세요.");
         return Promise.reject(err);

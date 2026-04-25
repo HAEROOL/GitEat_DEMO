@@ -22,8 +22,6 @@ export const Accordion = ({
   className = "",
   id,
 }: AccordionProps) => {
-  console.log("Accordion rendered, expanded:", expanded);
-
   const toggle = (event: React.SyntheticEvent) => {
     if (onChange) {
       onChange(event, !expanded);
@@ -62,8 +60,6 @@ export const AccordionSummary = ({
 
   const { expanded, toggle } = context;
 
-  console.log("AccordionSummary rendered, expanded:", expanded);
-
   return (
     <div
       id={id}
@@ -99,8 +95,6 @@ export const AccordionDetails = ({
   }
 
   const { expanded } = context;
-
-  console.log("AccordionDetails expanded:", expanded);
 
   return (
     <div
