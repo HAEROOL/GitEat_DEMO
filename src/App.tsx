@@ -16,12 +16,14 @@ import { DashBoardList } from "./pages/dashBoardList";
 import { PerformanceList } from "./pages/performanceList";
 import { Guide } from "./pages/guide";
 import { Commits } from "./components/pullRequest/commits";
+import { DemoBanner } from "./components/common/demoBanner";
 function App() {
   const queryClient = new QueryClient();
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          <DemoBanner />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/loading" element={<Loading />} />
