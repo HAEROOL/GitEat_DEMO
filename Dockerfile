@@ -17,12 +17,12 @@ WORKDIR /app
 # 소스 코드 복사
 COPY . .
 
-# 3. 패키지 파일 복사 및 종속성 설치 (Yarn 사용)
-COPY package.json yarn.lock ./
-RUN yarn install --network-timeout 100000
+# 3. 패키지 파일 복사 및 종속성 설치 (npm 사용)
+COPY package.json package-lock.json .npmrc ./
+RUN npm ci
 
 # 4. 빌드
-RUN yarn build
+RUN npm run build
 
 # 5. Nginx를 사용하여 정적 파일 서빙
 FROM nginx:alpine
