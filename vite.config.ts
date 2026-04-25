@@ -7,4 +7,7 @@ export default defineConfig({
   server: {
     host: "127.0.0.1", // 호스트를 명시적으로 설정
   },
+  build: {
+    target: "es2022",
+  },
 });

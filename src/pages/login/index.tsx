@@ -20,17 +20,15 @@ export function Login() {
 
   const navigation = useNavigate();
 
-  // 개발 모드에서는 자동으로 목업 데이터로 로그인 처리하고 /repos로 이동
+  // Mock 배포: 첫 진입 시 자동으로 목업 사용자로 로그인하고 /repos로 이동
   useEffect(() => {
-    if (import.meta.env.MODE === "development") {
-      setLogin();
-      refetch().then((result) => {
-        if (result.data) {
-          setUser(result.data);
-          navigation("/repos");
-        }
-      });
-    }
+    setLogin();
+    refetch().then((result) => {
+      if (result.data) {
+        setUser(result.data);
+        navigation("/repos");
+      }
+    });
   }, []);
 
   useEffect(() => {

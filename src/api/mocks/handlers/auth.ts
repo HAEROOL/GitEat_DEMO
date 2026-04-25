@@ -13,6 +13,16 @@ export const authHandlers = [
       }
     );
   }),
+  http.get(`${API_BASE}/oauth/gitlab/refresh`, async () => {
+    return HttpResponse.json(
+      {},
+      {
+        headers: {
+          authorization: "Bearer mock-token-123",
+        },
+      }
+    );
+  }),
 ];
 
 export default authHandlers;
