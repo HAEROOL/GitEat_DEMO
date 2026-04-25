@@ -4,4 +4,5 @@
 }
 body {
   overflow-y: scroll;
+  padding-top: 36px; /* DemoBanner 높이만큼 컨텐츠를 아래로 밀어냄 */
 }
