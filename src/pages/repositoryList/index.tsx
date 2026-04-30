@@ -6,8 +6,8 @@ import { useGetRepositories } from "../../api/queries/useGetRepositories";
 import { Suspense } from "react";
 import { ErrorBoundary } from "../../components/common/errorBoundery";
 import { AlarmAddModal } from "../../components/repositoryList/alarmAddModal";
-import { Skeleton } from "@mui/material";
 import { User } from "../../components/common/user";
+import { RepositoryCardSkeleton } from "../../components/common/repositoryCardSkeleton";
 const ACCESS_GRANT = ["private", "public", "internal"];
 interface RepositoriesProps {
   openModal: () => void;
@@ -59,11 +59,7 @@ export function RepositoryList() {
               </p>
             }
           >
-            <Suspense
-              fallback={
-                <Skeleton variant="rectangular" width="100%" height="100%" />
-              }
-            >
+            <Suspense fallback={<RepositoryCardSkeleton />}>
               <Repositories openModal={openAlarmModal} />
             </Suspense>
           </ErrorBoundary>
