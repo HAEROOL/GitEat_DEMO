@@ -2,53 +2,25 @@ import logo from "../../assets/images/logo.svg";
 // import githubLogo from "../../assets/images/github_logo.svg";
 import gitlabLogo from "../../assets/images/gitlab_logo.svg";
 import side from "../../assets/images/main_side.png";
-import { useGetMe } from "../../api/queries/useGetMe";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useLoginStore } from "../../store/loginStore";
 import { Landing } from "../landing";
 
 export function Login() {
-  const { setUser, setLogin } = useLoginStore();
-  const { data, isLoading, refetch } = useGetMe();
   const navigation = useNavigate();
 
-  // Mock 배포: 외부 OAuth로 나가지 않고 /loading?code=mock-code 로 진입.
-  // /loading 페이지가 mock된 POST /oauth/gitlab/login을 호출해 토큰을 받고
-  // /repos로 이동시킵니다.
+  // Mock 배포: OAuth 없이 버튼 클릭 시 곧장 /repos로 이동.
   const gitLabLogin = () => {
-    navigation("/loading?code=mock-code", { replace: true });
+    navigation("/repos");
   };
 
-  // Mock 배포: 첫 진입 시 자동으로 목업 사용자로 로그인하고 /repos로 이동
-  useEffect(() => {
-    setLogin();
-    refetch().then((result) => {
-      if (result.data) {
-        setUser(result.data);
-        navigation("/repos");
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem("access_token")) {
-      refetch();
-    }
-  }, []);
-  useEffect(() => {
-    if (!isLoading && data) {
-      navigation("/repos");
-      setUser(data);
-    }
-  }, [data, isLoading]);
   useEffect(() => {
     document.body.style.overflowY = "hidden";
     return () => {
       document.body.style.overflowY = "scroll";
     };
   }, []);
-  if (isLoading) return <>loading</>;
+
   return (
     <div>
       <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
