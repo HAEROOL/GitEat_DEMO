@@ -27,7 +27,7 @@ export function AuthLayout() {
       <div className="flex justify-end">
         <main className="w-[calc(100vw-250px)]">
           <ErrorBoundary fallbackComponent={<>error!!</>}>
-            <Suspense fallback={<Skeleton width="100%" height="100vh" />}>
+            <Suspense fallback={<Skeleton width="100%" height="calc(100vh - 36px)" />}>
               <Outlet />
             </Suspense>
           </ErrorBoundary>

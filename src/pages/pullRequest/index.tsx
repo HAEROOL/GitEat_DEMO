@@ -43,7 +43,7 @@ function DataProvider() {
     <div>
       <Header title={title} owner={owner} />
 
-      <main className="w-[98%] bg-stone-50 m-auto px-8 py-4 rounded-2xl min-h-[calc(100vh-100px)]">
+      <main className="w-[98%] bg-stone-50 m-auto px-8 py-4 rounded-2xl min-h-[calc(100vh-136px)]">
         <PrHeader
           userId={pullRequest!.userId}
           userName={pullRequest!.userName}
@@ -62,7 +62,7 @@ export function PullRequest() {
   const location = useLocation();
   return (
     <ErrorBoundary key={location.key} fallbackComponent={<>에러 발생!!</>}>
-      <Suspense fallback={<Skeleton width="100%" height="100vh" />}>
+      <Suspense fallback={<Skeleton width="100%" height="calc(100vh - 36px)" />}>
         <DataProvider />
       </Suspense>
     </ErrorBoundary>

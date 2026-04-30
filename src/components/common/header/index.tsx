@@ -16,7 +16,7 @@ export function Header() {
   };
   const [isSelected, setSelect] = useState("/repos");
   return (
-    <header className="h-[100vh]  w-[230px] flex flex-col justify-between items-center box-border py-[36px] fixed border-r">
+    <header className="h-screen-banner  w-[230px] flex flex-col justify-between items-center box-border py-[36px] fixed border-r">
       <img src={logo} className="w-[48px]" alt="logout" />
       <div className="flex flex-col gap-[50px] ">
         <Link
@@ -64,7 +64,7 @@ export function Header() {
         <LinkIcon to="/dashboard" src="report" alt="dashboard_page" /> */}
       </div>
       <div
-        className="rounded-[12px] p-[5px] hover:bg-[#e5f9c1] transition ease-in-out delay-50 cursor-pointer"
+        className="rounded-[12px] p-[5px] hover:bg-[#dce9ff] transition ease-in-out delay-50 cursor-pointer"
         onClick={handleLogout}
       >
         <div className="flex items-center gap-2">

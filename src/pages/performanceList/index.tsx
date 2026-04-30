@@ -2,8 +2,8 @@ import { useGetRepositories } from "../../api/queries/useGetRepositories";
 import { Suspense } from "react";
 import { ErrorBoundary } from "../../components/common/errorBoundery";
 import { Link } from "react-router-dom";
-import { Skeleton } from "@mui/material";
 import { User } from "../../components/common/user";
+import { RepositoryCardSkeleton } from "../../components/common/repositoryCardSkeleton";
 
 const ACCESS_GRANT = ["private", "public", "internal"];
 function Private() {
@@ -81,7 +81,7 @@ export function PerformanceList() {
         </div>
       </header>
 
-      <main className="w-[98%] m-auto px-8 py-4 bg-stone-50 rounded-2xl min-h-[calc(100vh-100px)]">
+      <main className="w-[98%] m-auto px-8 py-4 bg-stone-50 rounded-2xl min-h-[calc(100vh-136px)]">
         <div className="flex flex-col gap-5 m-auto w-[80%] pt-10">
           <ErrorBoundary
             fallbackComponent={
@@ -90,7 +90,7 @@ export function PerformanceList() {
               </p>
             }
           >
-            <Suspense fallback={<Skeleton width="100%" height="100%" />}>
+            <Suspense fallback={<RepositoryCardSkeleton />}>
               <Repositories />
             </Suspense>
           </ErrorBoundary>

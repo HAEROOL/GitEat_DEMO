@@ -69,7 +69,9 @@ export const warmHunksCache = () => {
 const API_BASE = import.meta.env.VITE_API_BASE || "";
 
 const repositoryHandler = [
-  http.get(`${API_BASE}/repo`, () => {
+  http.get(`${API_BASE}/repo`, async () => {
+    // 데모: 스켈레톤이 잠깐이라도 보이도록 약간의 지연을 둔다.
+    await new Promise((resolve) => setTimeout(resolve, 600));
     return HttpResponse.json(RepositoryList);
   }),
   http.get(`${API_BASE}/pr/:repoId`, () => {
