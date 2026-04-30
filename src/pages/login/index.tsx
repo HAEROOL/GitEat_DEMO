@@ -23,8 +23,8 @@ export function Login() {
 
   return (
     <div>
-      <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
-        <div className="w-[75%] mx-auto flex items-center h-screen justify-between snap-always snap-center scroll-smooth">
+      <div className="snap-y snap-mandatory overflow-y-scroll h-screen-banner">
+        <div className="w-[75%] mx-auto flex items-center h-screen-banner justify-between snap-always snap-center scroll-smooth">
           <section>
             <div>
               <h1 className="text-5xl font-bold mb-[25px] ">

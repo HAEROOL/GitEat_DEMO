@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo_blue.svg";
 
 export function Guide() {
   return (
-    <div className="flex justify-center bg-guide-background m-auto px-8 py-4 my-1 rounded-2xl min-h-[calc(100vh-100px)]">
+    <div className="flex justify-center bg-guide-background m-auto px-8 py-4 my-1 rounded-2xl min-h-[calc(100vh-136px)]">
       <main className="w-[calc(100vw-250px)]">
         <header className="my-40 text-center font-bold">
           <img src={logo} alt="logo" className="w-16 mx-auto" />

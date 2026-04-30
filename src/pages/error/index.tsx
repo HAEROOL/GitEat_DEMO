@@ -1,6 +1,6 @@
 export function Error() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-[20px]">
+    <div className="flex flex-col items-center justify-center h-screen-banner gap-[20px]">
       {/* <img src="/src/assets/images/logo.svg" alt="error" /> */}
       <h1 className="text-4xl">로그인 중 에러가 발생했어요!</h1>
       <a

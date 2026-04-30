@@ -47,7 +47,7 @@ export function FileChanges() {
 
   return (
     <div className="flex gap-[35px] justify-between mt-[1.5em]">
-      <div className="w-1/5 max-w- bg-white p-[15px] min-h-[calc(100vh-300px)] h-fit rounded-xl">
+      <div className="w-1/5 max-w- bg-white p-[15px] min-h-[calc(100vh-336px)] h-fit rounded-xl">
         <FileTree />
       </div>
       <div className="w-4/5">

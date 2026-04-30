@@ -22,7 +22,7 @@ export function Landing() {
   return (
     <>
       {/* SECTION 1 */}
-      <section className="relative w-full h-screen bg-gradient-to-b from-black to-gray-900 overflow-hidden flex items-center justify-start snap-always snap-center ">
+      <section className="relative w-full h-screen-banner bg-gradient-to-b from-black to-gray-900 overflow-hidden flex items-center justify-start snap-always snap-center ">
         {planets.map((planet, index) => (
           <motion.div
             key={index}
@@ -55,7 +55,7 @@ export function Landing() {
       </section>
       <div className="bg-gradient-to-b from-white to-[#D7EFFE]">
         {/* SECTION 2 */}
-        <section className="relative w-full h-screen from-black to-gray-900 overflow-hidden flex items-center justify-start p-[100px] snap-always snap-center scroll-smooth">
+        <section className="relative w-full h-screen-banner from-black to-gray-900 overflow-hidden flex items-center justify-start p-[100px] snap-always snap-center scroll-smooth">
           <motion.div
             className="text-5xl font-semibold text-center px-4 flex justify-between items-center w-full"
             initial={{ opacity: 0, y: 30 }}
@@ -88,7 +88,7 @@ export function Landing() {
         </section>
 
         {/* SECTION 3 */}
-        <section className="relative w-full h-screen from-black to-gray-900 overflow-hidden flex items-center justify-start p-[100px] snap-always snap-center scroll-smooth">
+        <section className="relative w-full h-screen-banner from-black to-gray-900 overflow-hidden flex items-center justify-start p-[100px] snap-always snap-center scroll-smooth">
           <motion.div
             className="text-5xl font-semibold text-center px-4 flex justify-between items-center w-full"
             initial={{ opacity: 0, y: 30 }}
@@ -120,7 +120,7 @@ export function Landing() {
             </motion.div>
           </motion.div>
         </section>
-        <section className="relative w-full h-screen from-black to-gray-900 overflow-hidden flex items-center justify-start p-[100px] snap-always snap-center scroll-smooth">
+        <section className="relative w-full h-screen-banner from-black to-gray-900 overflow-hidden flex items-center justify-start p-[100px] snap-always snap-center scroll-smooth">
           <div className="bg-[#EFF8FD] w-[80%] m-auto flex flex-col h-[600px] gap-10 rounded-xl justify-center items-center">
             <div className="flex w-full justify-around">
               <div className="flex flex-col gap-2">

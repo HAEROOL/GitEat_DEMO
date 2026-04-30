@@ -21,6 +21,12 @@ export default {
       fontFamily: {
         pretendard: ['"Pretendard-Regular"', "sans-serif"],
       },
+      height: {
+        "screen-banner": "calc(100vh - 36px)",
+      },
+      minHeight: {
+        "screen-banner": "calc(100vh - 36px)",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

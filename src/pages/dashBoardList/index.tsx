@@ -81,7 +81,7 @@ export function DashBoardList() {
         </div>
       </header>
 
-      <main className="w-[98%] m-auto px-8 py-4 bg-stone-50 rounded-2xl min-h-[calc(100vh-100px)]">
+      <main className="w-[98%] m-auto px-8 py-4 bg-stone-50 rounded-2xl min-h-[calc(100vh-136px)]">
         <div className="flex flex-col gap-5 m-auto w-[80%] pt-10">
           <ErrorBoundary
             fallbackComponent={
