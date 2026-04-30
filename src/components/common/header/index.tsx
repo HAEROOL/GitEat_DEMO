@@ -64,7 +64,7 @@ export function Header() {
         <LinkIcon to="/dashboard" src="report" alt="dashboard_page" /> */}
       </div>
       <div
-        className="rounded-[12px] p-[5px] hover:bg-[#e5f9c1] transition ease-in-out delay-50 cursor-pointer"
+        className="rounded-[12px] p-[5px] hover:bg-[#dce9ff] transition ease-in-out delay-50 cursor-pointer"
         onClick={handleLogout}
       >
         <div className="flex items-center gap-2">
