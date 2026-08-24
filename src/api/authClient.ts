@@ -4,6 +4,7 @@ import axios, {
   AxiosResponse,
   AxiosInstance,
 } from "axios";
+import { rejectHtmlResponse } from "./client";
 
 const API_BASE: string = import.meta.env.VITE_API_BASE as string;
 
@@ -76,6 +77,7 @@ authClient.interceptors.request.use((config) => {
 // 응답 인터셉터: 응답 헤더에 새 토큰이 있으면 저장하고, 401 에러 발생 시 refresh 로직 수행
 authClient.interceptors.response.use(
   (response: AxiosResponse) => {
+    rejectHtmlResponse(response);
     if (response.headers["authorization"]) {
       localStorage.setItem("access_token", response.headers["authorization"]);
     }
@@ -110,7 +112,7 @@ authClient.interceptors.response.use(
 
       isRefreshing = true;
       try {
-        const res = await refreshToken();
+        const res = rejectHtmlResponse(await refreshToken());
         // API 스펙에 맞게 새 토큰 위치 수정 (예: res.data.access_token)
         const newToken: string = res.headers["authorization"];
         localStorage.setItem("access_token", newToken);
