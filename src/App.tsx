@@ -17,6 +17,7 @@ import { PerformanceList } from "./pages/performanceList";
 import { Guide } from "./pages/guide";
 import { Commits } from "./components/pullRequest/commits";
 import { DemoBanner } from "./components/common/demoBanner";
+import { FileTreeSandbox } from "./pages/fileTreeSandbox";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/loading" element={<Loading />} />
             <Route path="/error" element={<Error />} />
+            <Route path="/sandbox/file-tree" element={<FileTreeSandbox />} />
             <Route element={<AuthLayout />}>
               <Route path="/repos" element={<RepositoryList />} />
               <Route path="/dashboard" element={<DashBoardList />} />
